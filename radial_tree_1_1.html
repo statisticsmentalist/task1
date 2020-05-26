@@ -1,0 +1,179 @@
+<html>
+<head>
+<style>
+  .node {
+    cursor: pointer;
+  }
+
+  .node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+  }
+
+  .node text {
+    font: 10px sans-serif;
+  }
+
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+  }
+</style>
+</head>
+
+<body>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.3.10/d3.min.js">
+  var pubs =
+  {'name': 'restaurant reviews', 'children': [{'children': [{'name': 'burger', 'color': 'rgba(255.0,0.0,0.0,1)'}, {'name': 'fries', 'color': 'rgba(255.0,0.0,0.0,0.94)'}, {'name': 'bar', 'color': 'rgba(255.0,0.0,0.0,0.8799999999999999)'}, {'name': 'burgers', 'color': 'rgba(255.0,0.0,0.0,0.8199999999999998)'}, {'name': 'good', 'color': 'rgba(255.0,0.0,0.0,0.7599999999999998)'}, {'name': 'vegas', 'color': 'rgba(255.0,0.0,0.0,0.6999999999999997)'}, {'name': 'like', 'color': 'rgba(255.0,0.0,0.0,0.6399999999999997)'}, {'name': 'place', 'color': 'rgba(255.0,0.0,0.0,0.5799999999999996)'}, {'name': 'nice', 'color': 'rgba(255.0,0.0,0.0,0.5199999999999996)'}, {'name': 'well', 'color': 'rgba(255.0,0.0,0.0,0.4599999999999996)'}, {'name': 'music', 'color': 'rgba(255.0,0.0,0.0,0.3999999999999996)'}, {'name': 'steak', 'color': 'rgba(255.0,0.0,0.0,0.3399999999999996)'}, {'name': 'night', 'color': 'rgba(255.0,0.0,0.0,0.2799999999999996)'}, {'name': 'cool', 'color': 'rgba(255.0,0.0,0.0,0.21999999999999958)'}, {'name': 'drinks', 'color': 'rgba(255.0,0.0,0.0,0.1599999999999996)'}], 'name': 'topic 0', 'color': 'rgba(255.0,0.0,0.0,1)'}, {'children': [{'name': 'pizza', 'color': 'rgba(255.0,153.00000000000003,0.0,1)'}, {'name': 'great', 'color': 'rgba(255.0,153.00000000000003,0.0,0.94)'}, {'name': 'place', 'color': 'rgba(255.0,153.00000000000003,0.0,0.8799999999999999)'}, {'name': 'good', 'color': 'rgba(255.0,153.00000000000003,0.0,0.8199999999999998)'}, {'name': 'beer', 'color': 'rgba(255.0,153.00000000000003,0.0,0.7599999999999998)'}, {'name': 'happy', 'color': 'rgba(255.0,153.00000000000003,0.0,0.6999999999999997)'}, {'name': 'hour', 'color': 'rgba(255.0,153.00000000000003,0.0,0.6399999999999997)'}, {'name': 'bar', 'color': 'rgba(255.0,153.00000000000003,0.0,0.5799999999999996)'}, {'name': 'love', 'color': 'rgba(255.0,153.00000000000003,0.0,0.5199999999999996)'}, {'name': 'food', 'color': 'rgba(255.0,153.00000000000003,0.0,0.4599999999999996)'}, {'name': 'back', 'color': 'rgba(255.0,153.00000000000003,0.0,0.3999999999999996)'}, {'name': 'wings', 'color': 'rgba(255.0,153.00000000000003,0.0,0.3399999999999996)'}, {'name': 'nice', 'color': 'rgba(255.0,153.00000000000003,0.0,0.2799999999999996)'}, {'name': 'crust', 'color': 'rgba(255.0,153.00000000000003,0.0,0.21999999999999958)'}, {'name': 'really', 'color': 'rgba(255.0,153.00000000000003,0.0,0.1599999999999996)'}], 'name': 'topic 1', 'color': 'rgba(255.0,153.00000000000003,0.0,1)'}, {'children': [{'name': 'like', 'color': 'rgba(203.99999999999994,255.0,0.0,1)'}, {'name': 'one', 'color': 'rgba(203.99999999999994,255.0,0.0,0.94)'}, {'name': 'get', 'color': 'rgba(203.99999999999994,255.0,0.0,0.8799999999999999)'}, {'name': 'place', 'color': 'rgba(203.99999999999994,255.0,0.0,0.8199999999999998)'}, {'name': 'know', 'color': 'rgba(203.99999999999994,255.0,0.0,0.7599999999999998)'}, {'name': 'time', 'color': 'rgba(203.99999999999994,255.0,0.0,0.6999999999999997)'}, {'name': 'go', 'color': 'rgba(203.99999999999994,255.0,0.0,0.6399999999999997)'}, {'name': 'make', 'color': 'rgba(203.99999999999994,255.0,0.0,0.5799999999999996)'}, {'name': 'new', 'color': 'rgba(203.99999999999994,255.0,0.0,0.5199999999999996)'}, {'name': 'order', 'color': 'rgba(203.99999999999994,255.0,0.0,0.4599999999999996)'}, {'name': 'location', 'color': 'rgba(203.99999999999994,255.0,0.0,0.3999999999999996)'}, {'name': 'see', 'color': 'rgba(203.99999999999994,255.0,0.0,0.3399999999999996)'}, {'name': 'want', 'color': 'rgba(203.99999999999994,255.0,0.0,0.2799999999999996)'}, {'name': 'even', 'color': 'rgba(203.99999999999994,255.0,0.0,0.21999999999999958)'}, {'name': 'people', 'color': 'rgba(203.99999999999994,255.0,0.0,0.1599999999999996)'}], 'name': 'topic 2', 'color': 'rgba(203.99999999999994,255.0,0.0,1)'}, {'children': [{'name': 'us', 'color': 'rgba(51.00000000000004,255.0,0.0,1)'}, {'name': 'food', 'color': 'rgba(51.00000000000004,255.0,0.0,0.94)'}, {'name': 'service', 'color': 'rgba(51.00000000000004,255.0,0.0,0.8799999999999999)'}, {'name': 'time', 'color': 'rgba(51.00000000000004,255.0,0.0,0.8199999999999998)'}, {'name': 'came', 'color': 'rgba(51.00000000000004,255.0,0.0,0.7599999999999998)'}, {'name': 'back', 'color': 'rgba(51.00000000000004,255.0,0.0,0.6999999999999997)'}, {'name': 'order', 'color': 'rgba(51.00000000000004,255.0,0.0,0.6399999999999997)'}, {'name': 'table', 'color': 'rgba(51.00000000000004,255.0,0.0,0.5799999999999996)'}, {'name': 'ordered', 'color': 'rgba(51.00000000000004,255.0,0.0,0.5199999999999996)'}, {'name': 'minutes', 'color': 'rgba(51.00000000000004,255.0,0.0,0.4599999999999996)'}, {'name': 'server', 'color': 'rgba(51.00000000000004,255.0,0.0,0.3999999999999996)'}, {'name': 'would', 'color': 'rgba(51.00000000000004,255.0,0.0,0.3399999999999996)'}, {'name': 'got', 'color': 'rgba(51.00000000000004,255.0,0.0,0.2799999999999996)'}, {'name': 'asked', 'color': 'rgba(51.00000000000004,255.0,0.0,0.21999999999999958)'}, {'name': 'took', 'color': 'rgba(51.00000000000004,255.0,0.0,0.1599999999999996)'}], 'name': 'topic 3', 'color': 'rgba(51.00000000000004,255.0,0.0,1)'}, {'children': [{'name': 'tacos', 'color': 'rgba(0.0,255.0,102.00000000000009,1)'}, {'name': 'chips', 'color': 'rgba(0.0,255.0,102.00000000000009,0.94)'}, {'name': 'taco', 'color': 'rgba(0.0,255.0,102.00000000000009,0.8799999999999999)'}, {'name': 'mexican', 'color': 'rgba(0.0,255.0,102.00000000000009,0.8199999999999998)'}, {'name': 'salsa', 'color': 'rgba(0.0,255.0,102.00000000000009,0.7599999999999998)'}, {'name': 'good', 'color': 'rgba(0.0,255.0,102.00000000000009,0.6999999999999997)'}, {'name': 'beans', 'color': 'rgba(0.0,255.0,102.00000000000009,0.6399999999999997)'}, {'name': 'chicken', 'color': 'rgba(0.0,255.0,102.00000000000009,0.5799999999999996)'}, {'name': 'burrito', 'color': 'rgba(0.0,255.0,102.00000000000009,0.5199999999999996)'}, {'name': 'fish', 'color': 'rgba(0.0,255.0,102.00000000000009,0.4599999999999996)'}, {'name': 'cheese', 'color': 'rgba(0.0,255.0,102.00000000000009,0.3999999999999996)'}, {'name': 'corn', 'color': 'rgba(0.0,255.0,102.00000000000009,0.3399999999999996)'}, {'name': 'food', 'color': 'rgba(0.0,255.0,102.00000000000009,0.2799999999999996)'}, {'name': 'also', 'color': 'rgba(0.0,255.0,102.00000000000009,0.21999999999999958)'}, {'name': 'rice', 'color': 'rgba(0.0,255.0,102.00000000000009,0.1599999999999996)'}], 'name': 'topic 4', 'color': 'rgba(0.0,255.0,102.00000000000009,1)'}, {'children': [{'name': 'food', 'color': 'rgba(0.0,255.0,255.0,1)'}, {'name': 'great', 'color': 'rgba(0.0,255.0,255.0,0.94)'}, {'name': 'place', 'color': 'rgba(0.0,255.0,255.0,0.8799999999999999)'}, {'name': 'service', 'color': 'rgba(0.0,255.0,255.0,0.8199999999999998)'}, {'name': 'good', 'color': 'rgba(0.0,255.0,255.0,0.7599999999999998)'}, {'name': 'friendly', 'color': 'rgba(0.0,255.0,255.0,0.6999999999999997)'}, {'name': 'sushi', 'color': 'rgba(0.0,255.0,255.0,0.6399999999999997)'}, {'name': 'restaurant', 'color': 'rgba(0.0,255.0,255.0,0.5799999999999996)'}, {'name': 'staff', 'color': 'rgba(0.0,255.0,255.0,0.5199999999999996)'}, {'name': 'best', 'color': 'rgba(0.0,255.0,255.0,0.4599999999999996)'}, {'name': 'really', 'color': 'rgba(0.0,255.0,255.0,0.3999999999999996)'}, {'name': 'go', 'color': 'rgba(0.0,255.0,255.0,0.3399999999999996)'}, {'name': 'amazing', 'color': 'rgba(0.0,255.0,255.0,0.2799999999999996)'}, {'name': 'menu', 'color': 'rgba(0.0,255.0,255.0,0.21999999999999958)'}, {'name': 'back', 'color': 'rgba(0.0,255.0,255.0,0.1599999999999996)'}], 'name': 'topic 5', 'color': 'rgba(0.0,255.0,255.0,1)'}, {'children': [{'name': 'like', 'color': 'rgba(0.0,102.00000000000009,255.0,1)'}, {'name': 'good', 'color': 'rgba(0.0,102.00000000000009,255.0,0.94)'}, {'name': 'food', 'color': 'rgba(0.0,102.00000000000009,255.0,0.8799999999999999)'}, {'name': 'really', 'color': 'rgba(0.0,102.00000000000009,255.0,0.8199999999999998)'}, {'name': 'would', 'color': 'rgba(0.0,102.00000000000009,255.0,0.7599999999999998)'}, {'name': 'place', 'color': 'rgba(0.0,102.00000000000009,255.0,0.6999999999999997)'}, {'name': 'better', 'color': 'rgba(0.0,102.00000000000009,255.0,0.6399999999999997)'}, {'name': 'ordered', 'color': 'rgba(0.0,102.00000000000009,255.0,0.5799999999999996)'}, {'name': 'pretty', 'color': 'rgba(0.0,102.00000000000009,255.0,0.5199999999999996)'}, {'name': 'much', 'color': 'rgba(0.0,102.00000000000009,255.0,0.4599999999999996)'}, {'name': 'got', 'color': 'rgba(0.0,102.00000000000009,255.0,0.3999999999999996)'}, {'name': 'ok', 'color': 'rgba(0.0,102.00000000000009,255.0,0.3399999999999996)'}, {'name': 'bad', 'color': 'rgba(0.0,102.00000000000009,255.0,0.2799999999999996)'}, {'name': 'think', 'color': 'rgba(0.0,102.00000000000009,255.0,0.21999999999999958)'}, {'name': 'taste', 'color': 'rgba(0.0,102.00000000000009,255.0,0.1599999999999996)'}], 'name': 'topic 6', 'color': 'rgba(0.0,102.00000000000009,255.0,1)'}, {'children': [{'name': 'salad', 'color': 'rgba(50.999999999999815,0.0,255.0,1)'}, {'name': 'menu', 'color': 'rgba(50.999999999999815,0.0,255.0,0.94)'}, {'name': 'delicious', 'color': 'rgba(50.999999999999815,0.0,255.0,0.8799999999999999)'}, {'name': 'dessert', 'color': 'rgba(50.999999999999815,0.0,255.0,0.8199999999999998)'}, {'name': 'cheese', 'color': 'rgba(50.999999999999815,0.0,255.0,0.7599999999999998)'}, {'name': 'sauce', 'color': 'rgba(50.999999999999815,0.0,255.0,0.6999999999999997)'}, {'name': 'ordered', 'color': 'rgba(50.999999999999815,0.0,255.0,0.6399999999999997)'}, {'name': 'restaurant', 'color': 'rgba(50.999999999999815,0.0,255.0,0.5799999999999996)'}, {'name': 'also', 'color': 'rgba(50.999999999999815,0.0,255.0,0.5199999999999996)'}, {'name': 'dish', 'color': 'rgba(50.999999999999815,0.0,255.0,0.4599999999999996)'}, {'name': 'well', 'color': 'rgba(50.999999999999815,0.0,255.0,0.3999999999999996)'}, {'name': 'dinner', 'color': 'rgba(50.999999999999815,0.0,255.0,0.3399999999999996)'}, {'name': 'great', 'color': 'rgba(50.999999999999815,0.0,255.0,0.2799999999999996)'}, {'name': 'meal', 'color': 'rgba(50.999999999999815,0.0,255.0,0.21999999999999958)'}, {'name': 'bread', 'color': 'rgba(50.999999999999815,0.0,255.0,0.1599999999999996)'}], 'name': 'topic 7', 'color': 'rgba(50.999999999999815,0.0,255.0,1)'}, {'children': [{'name': 'sandwich', 'color': 'rgba(204.00000000000017,0.0,255.0,1)'}, {'name': 'breakfast', 'color': 'rgba(204.00000000000017,0.0,255.0,0.94)'}, {'name': 'good', 'color': 'rgba(204.00000000000017,0.0,255.0,0.8799999999999999)'}, {'name': 'coffee', 'color': 'rgba(204.00000000000017,0.0,255.0,0.8199999999999998)'}, {'name': 'salad', 'color': 'rgba(204.00000000000017,0.0,255.0,0.7599999999999998)'}, {'name': 'also', 'color': 'rgba(204.00000000000017,0.0,255.0,0.6999999999999997)'}, {'name': 'lunch', 'color': 'rgba(204.00000000000017,0.0,255.0,0.6399999999999997)'}, {'name': 'bacon', 'color': 'rgba(204.00000000000017,0.0,255.0,0.5799999999999996)'}, {'name': 'fresh', 'color': 'rgba(204.00000000000017,0.0,255.0,0.5199999999999996)'}, {'name': 'place', 'color': 'rgba(204.00000000000017,0.0,255.0,0.4599999999999996)'}, {'name': 'bread', 'color': 'rgba(204.00000000000017,0.0,255.0,0.3999999999999996)'}, {'name': 'cheese', 'color': 'rgba(204.00000000000017,0.0,255.0,0.3399999999999996)'}, {'name': 'sandwiches', 'color': 'rgba(204.00000000000017,0.0,255.0,0.2799999999999996)'}, {'name': 'delicious', 'color': 'rgba(204.00000000000017,0.0,255.0,0.21999999999999958)'}, {'name': 'chicken', 'color': 'rgba(204.00000000000017,0.0,255.0,0.1599999999999996)'}], 'name': 'topic 8', 'color': 'rgba(204.00000000000017,0.0,255.0,1)'}, {'children': [{'name': 'chicken', 'color': 'rgba(255.0,0.0,152.99999999999991,1)'}, {'name': 'rice', 'color': 'rgba(255.0,0.0,152.99999999999991,0.94)'}, {'name': 'pork', 'color': 'rgba(255.0,0.0,152.99999999999991,0.8799999999999999)'}, {'name': 'fried', 'color': 'rgba(255.0,0.0,152.99999999999991,0.8199999999999998)'}, {'name': 'spicy', 'color': 'rgba(255.0,0.0,152.99999999999991,0.7599999999999998)'}, {'name': 'sauce', 'color': 'rgba(255.0,0.0,152.99999999999991,0.6999999999999997)'}, {'name': 'good', 'color': 'rgba(255.0,0.0,152.99999999999991,0.6399999999999997)'}, {'name': 'soup', 'color': 'rgba(255.0,0.0,152.99999999999991,0.5799999999999996)'}, {'name': 'bbq', 'color': 'rgba(255.0,0.0,152.99999999999991,0.5199999999999996)'}, {'name': 'thai', 'color': 'rgba(255.0,0.0,152.99999999999991,0.4599999999999996)'}, {'name': 'beef', 'color': 'rgba(255.0,0.0,152.99999999999991,0.3999999999999996)'}, {'name': 'also', 'color': 'rgba(255.0,0.0,152.99999999999991,0.3399999999999996)'}, {'name': 'shrimp', 'color': 'rgba(255.0,0.0,152.99999999999991,0.2799999999999996)'}, {'name': 'curry', 'color': 'rgba(255.0,0.0,152.99999999999991,0.21999999999999958)'}, {'name': 'hot', 'color': 'rgba(255.0,0.0,152.99999999999991,0.1599999999999996)'}], 'name': 'topic 9', 'color': 'rgba(255.0,0.0,152.99999999999991,1)'}], 'color': 'rgba(1,1,1,1)'};
+
+  var diameter = 1200;
+
+  var margin = {top: 20, right: 120, bottom: 20, left: 120},
+      width = diameter,
+      height = diameter;
+
+  var i = 0,
+      duration = 350,
+      root;
+
+  var tree = d3.layout.tree()
+      .size([360, diameter / 2 - 80])
+      .separation(function(a, b) { return (a.parent == b.parent ? 1 : 3) / a.depth; });
+
+  var diagonal = d3.svg.diagonal.radial()
+      .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
+
+  var svg = d3.select("body").append("svg")
+      .attr("width", width )
+      .attr("height", height )
+    .append("g")
+      .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+
+  root = pubs;
+  root.x0 = height / 2;
+  root.y0 = 0;
+
+  //root.children.forEach(collapse); // start with all children collapsed
+  update(root);
+
+  d3.select(self.frameElement).style("height", "1200px");
+
+  function update(source) {
+
+    // Compute the new tree layout.
+    var nodes = tree.nodes(root),
+        links = tree.links(nodes);
+
+    // Normalize for fixed-depth.
+    nodes.forEach(function(d) { d.y = d.depth * 160; });
+
+    // Update the nodes…
+    var node = svg.selectAll("g.node")
+        .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+    // Enter any new nodes at the parent's previous position.
+    var nodeEnter = node.enter().append("g")
+        .attr("class", "node")
+        //.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+        .on("click", click);
+
+    nodeEnter.append("circle")
+        .attr("r", 1e-4)
+        .style("fill", function(d) { return d.color; });
+
+    nodeEnter.append("text")
+        .attr("x", 10)
+        //.attr("x",function(d) { return d.cx < 180 ?-10:10};),
+        .attr("dy", ".35em")
+        .attr("text-anchor", "start")
+        //.attr("transform", function(d) { return d.x < 180 ? "translate(0)" : "rotate(180)translate(-" + (d.name.length * 12)  + ")"; })
+        .text(function(d) { return d.name; })
+        .style("fill-opacity", 1e-6);
+
+    // Transition nodes to their new position.
+    var nodeUpdate = node.transition()
+        .duration(duration)
+        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+
+    nodeUpdate.select("circle")
+        .attr("r", 4.5)
+        .style("fill", function(d) { return d.color ? d.color: "lightsteelblue" ; });
+
+    nodeUpdate.select("text")
+        .style("fill-opacity", 1)
+        .style("text-anchor", function(d) { return d.x < 180  ? "start" : "end"; })
+        .attr("transform", function(d) { return d.x < 180 ? "translate(0)" : "rotate(180)translate(-" + (d.name.length + 16)  + ")"; })
+    //.attr("text-anchor","middle");// function(d) { return d.x < 180 ? "right":"left";});
+
+    // TODO: appropriate transform
+    var nodeExit = node.exit().transition()
+        .duration(duration)
+        //.attr("transform", function(d) { return "diagonal(" + source.y + "," + source.x + ")"; })
+        .remove();
+
+    nodeExit.select("circle")
+        .attr("r", 1e-6);
+
+    nodeExit.select("text")
+        .style("fill-opacity", 1e-6);
+
+    // Update the links…
+    var link = svg.selectAll("path.link")
+        .data(links, function(d) { return d.target.id; });
+
+    // Enter any new links at the parent's previous position.
+    link.enter().insert("path", "g")
+        .attr("class", "link")
+        .attr("d", function(d) {
+          var o = {x: source.x0, y: source.y0};
+          return diagonal({source: o, target: o});
+        });
+
+    // Transition links to their new position.
+    link.transition()
+        .duration(duration)
+        .attr("d", diagonal);
+
+    // Transition exiting nodes to the parent's new position.
+    link.exit().transition()
+        .duration(duration)
+        .attr("d", function(d) {
+          var o = {x: source.x, y: source.y};
+          return diagonal({source: o, target: o});
+        })
+        .remove();
+
+    // Stash the old positions for transition.
+    nodes.forEach(function(d) {
+      d.x0 = d.x;
+      d.y0 = d.y;
+    });
+  }
+
+  // Toggle children on click.
+  function click(d) {
+    if (d.children) {
+      d._children = d.children;
+      d.children = null;
+    } else {
+      d.children = d._children;
+      d._children = null;
+    }
+
+    update(d);
+  }
+
+  // Collapse nodes
+  function collapse(d) {
+    if (d.children) {
+        d._children = d.children;
+        d._children.forEach(collapse);
+        d.children = null;
+      }
+  }
+
+</script>
+</body>
+</html>
